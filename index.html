@@ -410,13 +410,17 @@ document.addEventListener(
 
 
 // ĐIỂM
-let score = 0;
+let score = Number(
+  localStorage.getItem("saveScore")
+) || 0;
 
 let currentAnswer = "";
 
 let currentFly = null;
 
-let noiseCount = 0;
+let noiseCount = Number(
+  localStorage.getItem("saveNoise")
+) || 0;
 
 let maxBee = 3;
 
@@ -540,6 +544,11 @@ function gameOver(){
 
 // WIN
 function winGame(){
+  localStorage.removeItem("saveScore");
+
+localStorage.removeItem("saveNoise");
+
+localStorage.removeItem("saveWordProgress");
 
   level++;
   localStorage.setItem("animalLevel", level);
@@ -588,7 +597,6 @@ function loadVocabulary(){
   let lines =
     text.split("\n");
 
-
   for(let line of lines){
 
     if(line.includes("=")){
@@ -602,7 +610,6 @@ function loadVocabulary(){
       let vietnamese =
         parts[1].trim();
 
-
       words.push({
 
         english:english,
@@ -610,10 +617,28 @@ function loadVocabulary(){
 
       });
 
-
       wordProgress[english] = 0;
 
     }
+
+  }
+
+
+  // KHÔI PHỤC TIẾN ĐỘ ĐÃ LƯU
+
+  let savedProgress =
+
+    localStorage.getItem(
+      "saveWordProgress"
+    );
+
+  if(savedProgress){
+
+    wordProgress =
+
+      JSON.parse(
+        savedProgress
+      );
 
   }
 
@@ -806,6 +831,10 @@ box.ondblclick = function(e){
         navigator.vibrate([40,30,40]);
 
         score += 5;
+        localStorage.setItem(
+  "saveScore",
+  score
+);
 
         updateUI();
 
@@ -817,6 +846,10 @@ box.ondblclick = function(e){
         wordProgress[
           englishWord
         ]++;
+        localStorage.setItem(
+  "saveWordProgress",
+  JSON.stringify(wordProgress)
+);
 
 
         // ĐỦ 3 LẦN -> XÓA ONG
@@ -942,6 +975,10 @@ function createNoise(){
 
 
   noiseCount++;
+  localStorage.setItem(
+  "saveNoise",
+  noiseCount
+);
 
 
   // 2 CON -> MẤT ONG
