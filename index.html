@@ -66,16 +66,28 @@ html,body{
 }
 
 #bestScore{
+
   position:fixed;
-  top:70px;
-  left:10px;
+
+  top:220px;
+
+  right:10px;
+
   background:white;
+
   padding:10px 18px;
+
   border-radius:20px;
+
   font-size:18px;
+
   z-index:999;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.2);
+
   max-width:230px;
+
 }
 
 
@@ -201,16 +213,52 @@ html,body{
 
 
 #openButton{
+
   position:fixed;
   top:80px;
   right:10px;
+
   width:60px;
   height:60px;
+
   border:none;
   border-radius:50%;
+
   font-size:30px;
+
   background:white;
+
   z-index:999;
+}
+
+#listenButton{
+
+  position:fixed;
+
+  top:150px;
+
+  right:10px;
+
+  width:160px;
+
+  height:50px;
+
+  border:none;
+
+  border-radius:25px;
+
+  background:#4caf50;
+
+  color:white;
+
+  font-size:20px;
+
+  font-weight:bold;
+
+  z-index:999;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.2);
 }
 
 #loaderPanel{
@@ -300,6 +348,9 @@ html,body{
 <button id="openButton">
 📚
 </button>
+<button id="listenButton">
+🎧 OFF
+</button>
 
 <div id="word"></div>
 
@@ -372,7 +423,11 @@ let level = Number(localStorage.getItem("animalLevel") || 0);
 const levelAnimals = [
 "🐝","🐦","🕊️","🐇","🐕","🐎","🐄","🐘","🦕","🦖","🐉"
 ];
+let listeningMode =
 
+localStorage.getItem(
+  "listeningMode"
+) == "true";
 
 // KỶ LỤC
 let highScore =
@@ -996,14 +1051,23 @@ function createFly(){
     }
 
 
-    wordBox.style.display =
-      "block";
+if(!listeningMode){
 
-    wordBox.style.left =
-      popupX + "px";
+  wordBox.style.display =
+    "block";
 
-    wordBox.style.top =
-      (currentY - 10) + "px";
+  wordBox.style.left =
+    popupX + "px";
+
+  wordBox.style.top =
+    (currentY - 10) + "px";
+
+}else{
+
+  wordBox.style.display =
+    "none";
+
+}
 
 
     wordBox.style.transform =
@@ -1148,7 +1212,48 @@ if(savedWords){
 
 }
 
+// LUYỆN NGHE
 
+const listenButton =
+
+document.getElementById(
+  "listenButton"
+);
+
+function updateListenButton(){
+
+  listenButton.innerHTML =
+
+    listeningMode
+
+    ?
+
+    "🎧 NGHE"
+
+    :
+
+    "📖 HỌC";
+
+}
+
+updateListenButton();
+
+listenButton.onclick = function(){
+
+  listeningMode =
+    !listeningMode;
+
+  localStorage.setItem(
+
+    "listeningMode",
+
+    listeningMode
+
+  );
+
+  updateListenButton();
+
+};
 // START
 loadVocabulary();
 
