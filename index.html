@@ -591,6 +591,9 @@ setTimeout(function(){
 
 // WIN
 function winGame(){
+  localStorage.removeItem(
+  "saveWordProgress"
+);
   localStorage.removeItem("saveScore");
 
 localStorage.removeItem("saveNoise");
@@ -626,7 +629,11 @@ document
   .getElementById("restartButton")
   .onclick = function(){
 
-    location.reload();
+localStorage.removeItem(
+  "saveWordProgress"
+);
+
+location.reload();
 
   }
 
@@ -667,7 +674,23 @@ function loadVocabulary(){
       wordProgress[english] = 0;
 
     }
+// KHÔI PHỤC TIẾN ĐỘ
 
+let savedProgress =
+
+localStorage.getItem(
+  "saveWordProgress"
+);
+
+if(savedProgress){
+
+  wordProgress =
+
+    JSON.parse(
+      savedProgress
+    );
+
+}
   }
 
 
@@ -893,6 +916,15 @@ box.ondblclick = function(e){
         wordProgress[
           englishWord
         ]++;
+        localStorage.setItem(
+
+  "saveWordProgress",
+
+  JSON.stringify(
+    wordProgress
+  )
+
+);
         localStorage.setItem(
   "saveWordProgress",
   JSON.stringify(wordProgress)
