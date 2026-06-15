@@ -540,6 +540,10 @@ if(score < 0){
 }
 
 updateUI();
+  localStorage.setItem(
+  "saveScore",
+  score
+);
 
 document
   .getElementById("penaltyText")
