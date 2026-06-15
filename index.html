@@ -91,7 +91,7 @@ html,body{
 }
 
 
-/* GAME OVER */
+/*  */
 
 #gameOverText{
 
@@ -330,6 +330,31 @@ html,body{
   display:none;
 }
 
+#penaltyText{
+
+  position:fixed;
+
+  top:62%;
+
+  left:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  font-size:60px;
+
+  font-weight:bold;
+
+  color:red;
+
+  text-shadow:
+    3px 3px 10px black;
+
+  display:none;
+
+  z-index:99999;
+
+}
 </style>
 </head>
 
@@ -358,6 +383,9 @@ html,body{
 
 <div id="gameOverText">
 GAME OVER
+</div>
+  <div id="penaltyText">
+-200 ĐIỂM
 </div>
 
 <div id="winText">
@@ -498,6 +526,22 @@ function gameOver(){
     .getElementById("gameOverText")
     .style.display =
       "block";
+  // TRỪ 200 ĐIỂM
+
+score -= 200;
+
+if(score < 0){
+
+  score = 0;
+
+}
+
+updateUI();
+
+document
+  .getElementById("penaltyText")
+  .style.display =
+    "block";
 
 
   navigator.vibrate(
@@ -533,11 +577,11 @@ function gameOver(){
     "none";
 
 
-  setTimeout(function(){
+setTimeout(function(){
 
-    location.reload();
+  location.reload();
 
-  },3000);
+},5000);
 
 }
 
