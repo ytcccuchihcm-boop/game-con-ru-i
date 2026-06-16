@@ -724,24 +724,8 @@ function loadVocabulary(){
       wordProgress[english] = 0;
 
     }
-// KHÔI PHỤC TIẾN ĐỘ
-
-let savedProgress =
-
-localStorage.getItem(
-  "saveWordProgress"
-);
-
-if(savedProgress){
-
-  wordProgress =
-
-    JSON.parse(
-      savedProgress
-    );
 
 }
-  }
 
 
   // KHÔI PHỤC TIẾN ĐỘ ĐÃ LƯU
@@ -1450,17 +1434,26 @@ document
 
 // KHÔI PHỤC TỪ ĐÃ LƯU
 
-let savedWords =
-
+let savedProgress =
   localStorage.getItem(
-    "savedVocabulary"
+    "saveWordProgress"
   );
 
-if(savedWords){
+if(savedProgress){
 
-  document.getElementById(
-    "vocabInput"
-  ).value = savedWords;
+  let oldProgress =
+    JSON.parse(savedProgress);
+
+  for(let key in oldProgress){
+
+    if(wordProgress[key] !== undefined){
+
+      wordProgress[key] =
+        oldProgress[key];
+
+    }
+
+  }
 
 }
 
