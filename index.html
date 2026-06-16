@@ -398,8 +398,8 @@ html,body{
 <button id="listenButton">
 🎧 OFF
 </button>
-  <button id="studyModeButton">
-🎲 NGẪU NHIÊN
+<button id="studyModeButton">
+🎲
 </button>
 
 <div id="word"></div>
@@ -491,6 +491,11 @@ let listeningMode =
 localStorage.getItem(
   "listeningMode"
 ) == "true";
+  let studyMode =
+
+localStorage.getItem(
+  "studyMode"
+) || "random";
 
 // KỶ LỤC
 let highScore =
@@ -1466,6 +1471,51 @@ listenButton.onclick = function(){
   );
 
   updateListenButton();
+
+};
+  const studyModeButton =
+
+document.getElementById(
+  "studyModeButton"
+);
+
+function updateStudyModeButton(){
+
+  if(studyMode == "random"){
+
+    studyModeButton.innerHTML =
+      "🎲";
+
+  }else{
+
+    studyModeButton.innerHTML =
+      "📚";
+
+  }
+
+}
+
+updateStudyModeButton();
+
+studyModeButton.onclick =
+function(){
+
+  if(studyMode == "random"){
+
+    studyMode = "ordered";
+
+  }else{
+
+    studyMode = "random";
+
+  }
+
+  localStorage.setItem(
+    "studyMode",
+    studyMode
+  );
+
+  updateStudyModeButton();
 
 };
 // START
