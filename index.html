@@ -490,12 +490,13 @@ let level = Number(localStorage.getItem("animalLevel") || 0);
 const levelAnimals = [
 "🐝","🐦","🕊️","🐇","🐕","🐎","🐄","🐘","🦕","🦖","🐉"
 ];
-let listeningMode =
-  let studyMode =
+let studyMode =
 
 localStorage.getItem(
   "studyMode"
 ) || "random";
+
+let listeningMode =
 
 localStorage.getItem(
   "listeningMode"
@@ -1462,51 +1463,6 @@ function updateListenButton(){
 updateListenButton();
 
 listenButton.onclick = function(){
-  const studyModeButton =
-
-document.getElementById(
-  "studyModeButton"
-);
-
-function updateStudyModeButton(){
-
-  if(studyMode == "random"){
-
-    studyModeButton.innerHTML =
-      "🎲 NGẪU NHIÊN";
-
-  }else{
-
-    studyModeButton.innerHTML =
-      "📚 THEO THỨ TỰ";
-
-  }
-
-}
-
-updateStudyModeButton();
-
-studyModeButton.onclick =
-function(){
-
-  if(studyMode == "random"){
-
-    studyMode = "ordered";
-
-  }else{
-
-    studyMode = "random";
-
-  }
-
-  localStorage.setItem(
-    "studyMode",
-    studyMode
-  );
-
-  updateStudyModeButton();
-
-};
 
   listeningMode =
     !listeningMode;
