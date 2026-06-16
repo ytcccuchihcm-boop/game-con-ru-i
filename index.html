@@ -261,7 +261,34 @@ html,body{
     0 4px 10px rgba(0,0,0,0.2);
 }
 
-#loaderPanel{
+#studyModeButton{
+
+  position:fixed;
+
+  top:210px;
+
+  right:10px;
+
+  width:180px;
+
+  height:50px;
+
+  border:none;
+
+  border-radius:25px;
+
+  background:#2196f3;
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  z-index:999;
+
+}
+  #loaderPanel{
   position:fixed;
   top:150px;
   right:10px;
@@ -381,6 +408,9 @@ html,body{
 <button id="listenButton">
 🎧 OFF
 </button>
+  <button id="studyModeButton">
+🎲 NGẪU NHIÊN
+</button>
 
 <div id="word"></div>
 
@@ -461,6 +491,11 @@ const levelAnimals = [
 "🐝","🐦","🕊️","🐇","🐕","🐎","🐄","🐘","🦕","🦖","🐉"
 ];
 let listeningMode =
+  let studyMode =
+
+localStorage.getItem(
+  "studyMode"
+) || "random";
 
 localStorage.getItem(
   "listeningMode"
@@ -740,11 +775,25 @@ function checkWin(){
 // TỪ CHƯA HOÀN THÀNH
 function getAvailableWords(){
 
-  return words.filter(word =>
+  let availableWords =
 
-    wordProgress[word.english] < 3
+    words.filter(word =>
 
-  );
+      wordProgress[word.english] < 3
+
+    );
+
+  if(studyMode == "ordered"){
+
+    if(availableWords.length > 0){
+
+      return [availableWords[0]];
+
+    }
+
+  }
+
+  return availableWords;
 
 }
 
@@ -1413,6 +1462,51 @@ function updateListenButton(){
 updateListenButton();
 
 listenButton.onclick = function(){
+  const studyModeButton =
+
+document.getElementById(
+  "studyModeButton"
+);
+
+function updateStudyModeButton(){
+
+  if(studyMode == "random"){
+
+    studyModeButton.innerHTML =
+      "🎲 NGẪU NHIÊN";
+
+  }else{
+
+    studyModeButton.innerHTML =
+      "📚 THEO THỨ TỰ";
+
+  }
+
+}
+
+updateStudyModeButton();
+
+studyModeButton.onclick =
+function(){
+
+  if(studyMode == "random"){
+
+    studyMode = "ordered";
+
+  }else{
+
+    studyMode = "random";
+
+  }
+
+  localStorage.setItem(
+    "studyMode",
+    studyMode
+  );
+
+  updateStudyModeButton();
+
+};
 
   listeningMode =
     !listeningMode;
