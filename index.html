@@ -1413,7 +1413,6 @@ document
   .getElementById("loadButton")
   .onclick = function(){
 
-    // LƯU TỪ
     localStorage.setItem(
 
       "savedVocabulary",
@@ -1423,6 +1422,27 @@ document
       ).value
 
     );
+
+    loadVocabulary();
+
+    // XÓA HẾT CON VẬT CŨ
+
+    document
+      .querySelectorAll(".fly")
+      .forEach(f=>f.remove());
+
+    // XÓA TỪ ĐANG HIỆN
+
+    wordBox.style.display =
+      "none";
+
+    // TẠO LẠI MÀN CHƠI
+
+    createFly();
+    createFly();
+    createFly();
+
+};
 
     loadVocabulary();
 
