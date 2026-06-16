@@ -725,9 +725,6 @@ function loadVocabulary(){
 
     }
 
-}
-
-
   // KHÔI PHỤC TIẾN ĐỘ ĐÃ LƯU
 
   let savedProgress =
@@ -1434,26 +1431,17 @@ document
 
 // KHÔI PHỤC TỪ ĐÃ LƯU
 
-let savedProgress =
+let savedWords =
+
   localStorage.getItem(
-    "saveWordProgress"
+    "savedVocabulary"
   );
 
-if(savedProgress){
+if(savedWords){
 
-  let oldProgress =
-    JSON.parse(savedProgress);
-
-  for(let key in oldProgress){
-
-    if(wordProgress[key] !== undefined){
-
-      wordProgress[key] =
-        oldProgress[key];
-
-    }
-
-  }
+  document.getElementById(
+    "vocabInput"
+  ).value = savedWords;
 
 }
 
